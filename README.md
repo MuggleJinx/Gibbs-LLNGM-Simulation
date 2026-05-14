@@ -40,8 +40,7 @@ install.packages(c(
 ```
 
 The sampler uses `ngme2::rgig()` and `ngme2::ar1()`. Install `ngme2` from the
-source used by your project environment if it is not available from your normal
-R package repositories.
+[`ngme2` website](https://davidbolin.github.io/ngme2/) or from CRAN.
 
 ## Repository Layout
 
@@ -140,4 +139,9 @@ and a random draw from `GIG(1, 1, 1)`.
 
 ## Citation
 
-If you use this code, please cite the accompanying paper.
+If you use this code, please cite the accompanying paper:
+
+> Awadelkarim, E., Bolin, D., Jin, X., Simas, A. B., and Wallin, J.
+> Geometric ergodicity of Gibbs samplers for linear latent models with GIG
+> variance mixtures. arXiv:2602.07944.
+> <https://arxiv.org/abs/2602.07944>
