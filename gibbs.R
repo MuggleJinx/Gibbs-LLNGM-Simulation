@@ -17,9 +17,23 @@ resolve_rgig <- function(rgig_fun = NULL) {
     return(rgig_fun)
   }
   if (requireNamespace("ngme2", quietly = TRUE)) {
-    return(ngme2::rgig)
+    return(function(n, p, a, b, seed = NULL) {
+      if (is.null(seed)) {
+        seed <- sample.int(.Machine$integer.max, 1L)
+      }
+      ngme2::rgig(n, p, a, b, seed = seed)
+    })
   }
   stop("rgig() not found. Install ngme2, or pass rgig_fun.")
+}
+
+draw_gig <- function(rgig_core, n, p, a, b) {
+  seed <- sample.int(.Machine$integer.max, 1L)
+  if ("seed" %in% names(formals(rgig_core))) {
+    rgig_core(n, p, a, b, seed = seed)
+  } else {
+    rgig_core(n, p, a, b)
+  }
 }
 
 rgig_std <- function(n, p, a, b, rgig_core, tol = 0) {
@@ -46,7 +60,7 @@ rgig_std <- function(n, p, a, b, rgig_core, tol = 0) {
     out[idx_invgamma] <- 1 / rgamma(sum(idx_invgamma), shape = -p[idx_invgamma], rate = b[idx_invgamma] / 2)
   }
   if (any(idx_gig)) {
-    out[idx_gig] <- rgig_core(sum(idx_gig), p[idx_gig], a[idx_gig], b[idx_gig])
+    out[idx_gig] <- draw_gig(rgig_core, sum(idx_gig), p[idx_gig], a[idx_gig], b[idx_gig])
   }
 
   out

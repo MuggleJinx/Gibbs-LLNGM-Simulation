@@ -27,29 +27,32 @@ rows <- data.frame(
   Regime = x$regime,
   Point = x$point,
   IACT_S_plus = fmt2(x$iact_S_plus),
-  IACT_S_minus = fmt2(x$iact_S_minus),
-  IACT_S_log = fmt2(x$iact_S_log),
   ESS_sec_S_plus = fmt2(x$ess_sec_S_plus),
+  IACT_S_minus = fmt2(x$iact_S_minus),
   ESS_sec_S_minus = fmt2(x$ess_sec_S_minus),
+  IACT_S_log = fmt2(x$iact_S_log),
   ESS_sec_S_log = fmt2(x$ess_sec_S_log),
   stringsAsFactors = FALSE
 )
 
 cat("\\begin{table}[t]\n")
 cat("\\centering\n")
-cat("\\caption{B1 simulation summary (IACT and ESS/sec).}\n")
-cat("\\label{tab:sim-b1-summary}\n")
+cat("\\small\n")
+cat("\\caption{S1 simulation summary (IACT and ESS/sec).}\n")
+cat("\\label{tab:sim-S1-summary}\n")
 cat("\\begin{tabular}{llrrrrrr}\n")
 cat("\\toprule\n")
-cat("Regime & Point & IACT $S_+$ & IACT $S_-$ & IACT $S_{\\log}$ & ESS/sec $S_+$ & ESS/sec $S_-$ & ESS/sec $S_{\\log}$ \\\\\n")
+cat("\\multirow{2}{*}{Regime} & \\multirow{2}{*}{Point} & \\multicolumn{2}{c}{$S_+$} & \\multicolumn{2}{c}{$S_-$} & \\multicolumn{2}{c}{$S_{\\log}$} \\\\\n")
+cat("\\cmidrule(lr){3-4} \\cmidrule(lr){5-6} \\cmidrule(lr){7-8}\n")
+cat(" & & IACT & ESS/sec & IACT & ESS/sec & IACT & ESS/sec \\\\\n")
 cat("\\midrule\n")
 
 for (i in seq_len(nrow(rows))) {
   r <- rows[i, ]
   cat(sprintf(
     "%s & %s & %s & %s & %s & %s & %s & %s \\\\\n",
-    r$Regime, r$Point, r$IACT_S_plus, r$IACT_S_minus, r$IACT_S_log,
-    r$ESS_sec_S_plus, r$ESS_sec_S_minus, r$ESS_sec_S_log
+    r$Regime, r$Point, r$IACT_S_plus, r$ESS_sec_S_plus,
+    r$IACT_S_minus, r$ESS_sec_S_minus, r$IACT_S_log, r$ESS_sec_S_log
   ))
 }
 

@@ -131,6 +131,10 @@ The main experiment scripts set random seeds internally:
 - S1 uses `set.seed(1)` and chain-specific seeds based on `seed_base`.
 - S2 uses `set.seed(2)` and deterministic seeds indexed by scan point and chain.
 
+The GIG sampler is `ngme2::rgig()`. Because `ngme2::rgig()` uses its own
+`seed` argument, `gibbs.R` generates deterministic integer seeds from R's seeded
+RNG stream and passes them explicitly to `ngme2::rgig(seed = ...)`.
+
 Both experiments use four overdispersed initial states, including fixed vectors
 and a random draw from `GIG(1, 1, 1)`.
 
